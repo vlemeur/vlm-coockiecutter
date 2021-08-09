@@ -1,0 +1,8 @@
+# Ignore README.md
+README.md
+
+# Ignore GitHub workflows
+{{cookiecutter.project_folder}}/.github/workflows/
+
+# Ignore other yaml files with cookiecutter template expressions
+{{cookiecutter.project_folder}}/manifest.yml

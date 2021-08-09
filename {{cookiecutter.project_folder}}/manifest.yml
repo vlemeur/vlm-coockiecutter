@@ -1,0 +1,15 @@
+features:
+  - name: data_analysis
+    enabled: {{ cookiecutter.data_analysis == "y" }}
+    resources:
+      - data
+      - notebooks
+      - scripts
+      - pickles
+
+
+  - name: documentation
+    enabled: {{ cookiecutter.documentation == "y" }}
+    resources:
+      - Dockerfile
+      - docs
