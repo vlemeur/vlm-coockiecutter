@@ -1,0 +1,12 @@
+{
+    "author": "Vincent LE MEUR",
+    "email": "vincenlemeur@gmail.com",
+    "project_folder": "vlm-python-cookiecutter",
+    "package_name": "{{ cookiecutter.project_folder.lower().replace(' ', '_').replace('-', '_') }}",
+    "repository_url": "https://github.com/vlemeur/vlm-coockiecutter/{{ cookiecutter.project_folder }}",
+    "project_short_description": "Cookiecutter for Python projects",
+    "data_analysis": "n",
+    "check_dependencies_updates": "n",
+    "documentation": "n",
+    "version": "0.0.0"
+  }
