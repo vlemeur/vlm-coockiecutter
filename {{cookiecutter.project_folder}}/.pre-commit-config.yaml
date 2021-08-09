@@ -1,0 +1,54 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: check-added-large-files
+      - id: check-ast
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-yaml
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.3.2
+    hooks:
+      - id: prettier
+  - repo: local
+    hooks:
+      - id: black
+        name: black
+        entry: tox -e black-run
+        language: system
+        types: [python]
+      - id: isort
+        name: isort
+        entry: tox -e isort-run
+        language: system
+        types: [python]
+      - id: bandit
+        name: bandit
+        entry: tox -e bandit
+        language: system
+        types: [python]
+      - id: flake8
+        name: flake8
+        entry: tox -e flake8
+        language: system
+        types: [python]
+      - id: spelling
+        name: spelling
+        entry: tox -e spelling
+        language: system
+        types: [python]
+      - id: pylint
+        name: pylint
+        entry: tox -e pylint
+        language: system
+        types: [python]
+      - id: mypy
+        name: mypy
+        entry: tox -e mypy
+        language: system
+        types: [python]
