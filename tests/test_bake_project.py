@@ -45,7 +45,7 @@ EXPECTED_RENDERED_FILES = set(
     ]
 )
 
-EXPECTED_WORKFLOWS = set([".github/workflows/release.yaml", ".github/workflows/tests.yaml"])
+EXPECTED_WORKFLOWS = set([".github/workflows/tests.yaml"])
 
 
 def no_curlies(filepath):
