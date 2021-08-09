@@ -134,7 +134,6 @@ def test_bake_project_with_documentation(cookies):
         documentation_layout.update(["docs"])
 
         expected_workflows_documentation = copy.copy(EXPECTED_WORKFLOWS)
-        expected_workflows_documentation.update([".github/workflows/release-doc.yaml"])
 
         found_toplevel_files = {f.basename for f in result.project.listdir()}
         assert found_toplevel_files == documentation_layout
