@@ -295,7 +295,7 @@ uwsgi
 wsgi
 yaml
 
-# Metroscope - additional accepted words
+# Personal - additional accepted words
 
 cookiecutter
 csv
@@ -308,8 +308,6 @@ freqs
 inplace
 len
 matplotlib
-metroscope
-mts
 nan
 nans
 ncols

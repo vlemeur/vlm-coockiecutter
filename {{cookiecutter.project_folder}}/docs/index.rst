@@ -1,4 +1,4 @@
-Metroscope {{ cookiecutter.package_name }}
+{{ cookiecutter.package_name }}
 ==============================
 
 .. toctree::

@@ -93,7 +93,7 @@ Some resources to help you :
 - The spell checker used for this project is [pyenchant](https://github.com/pyenchant/pyenchant) and it behaves pretty much as a pylint plugin.
 - The only notable difference is you probably have to install a system library.
   On WSL/Ubuntu this would be `sudo apt-get install enchant`.
-- This will install the English (US) dictionary, and a custom dictionary for python and metroscope words is provided at `spelling/spelling.txt`.
+- This will install the English (US) dictionary, and a custom dictionary for python and personal words is provided at `spelling/spelling.txt`.
 - Both dictionaries are used directly by the tox commands recomended below
 - To check the current spelling of all project code, comments and docstrings, use `tox -e spelling`.
 - If some words are correctly spelled yet are not accepted, you can update the custom dictionary yourself.
@@ -144,7 +144,6 @@ Make sure to document functions, methods and classes with [NumpyDoc](https://num
 Add your modules to the generated project's reference file at : `{{cookiecutter.project_folder}}/docs/reference.rst`
 Documentation hosting is currently taken care of by the DevOps team once at the start of the project.
 After that, hosted documentation is updated only on release (by default) and available only for the latest tag.
-By default, documentation for `{{ cookiecutter.package_name }}` can be accessed with the Metroscope VPN only and at : `rnd.metroscope.io/{{ cookiecutter.package_name }}-doc`.
 Once it's done, you can preview your documentation locally :
 
 - build it with `tox -e docs`
