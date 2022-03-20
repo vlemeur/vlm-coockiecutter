@@ -7,11 +7,11 @@ features:
       - scripts
       - pickles
 
-- name: check_dependencies_updates
-    enabled: {{ cookiecutter.check_dependencies_updates == "y" }}
-    resources:
-      - tox-updated.ini
-      - .github/workflows/tests-updated.yaml
+  - name: check_dependencies_updates
+      enabled: {{ cookiecutter.check_dependencies_updates == "y" }}
+      resources:
+        - tox-updated.ini
+        - .github/workflows/tests-updated.yaml
 
   - name: documentation
     enabled: {{ cookiecutter.documentation == "y" }}
