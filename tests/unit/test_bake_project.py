@@ -17,11 +17,13 @@ DEFAULT_LAYOUT = set(
         ".pre-commit-config.yaml",
         ".pylintrc",
         "CHANGELOG.md",
+        "MANIFEST.in",
         "README.md",
-        "vlm_python_cookiecutter",
+        "metroscope_python_cookiecutter",
         "pyproject.toml",
         "setup.cfg",
         "setup.py",
+        "sonar-project.properties",
         "spelling",
         "tests",
         "tox.ini",
@@ -35,24 +37,25 @@ EXPECTED_RENDERED_FILES = set(
         ".github/ISSUE_TEMPLATE/bug_report.md",
         "CHANGELOG.md",
         "README.md",
-        "vlm_python_cookiecutter/__init__.py",
+        "metroscope_python_cookiecutter/__init__.py",
         "pyproject.toml",
         "setup.cfg",
         "setup.py",
+        "sonar-project.properties",
         "tests/__init__.py",
         "tests/test_sanity.py",
         "tox.ini",
     ]
 )
 
-EXPECTED_WORKFLOWS = set([".github/workflows/tests.yaml"])
+EXPECTED_WORKFLOWS = set([".github/workflows/release.yaml", ".github/workflows/tests.yaml"])
 
 
 def no_curlies(filepath):
     """Utility to make sure no curly braces appear in a file.
     That is, was Jinja able to render everything?
     """
-    with open(filepath, "r") as file:
+    with open(file=filepath, mode="r", encoding="utf-8") as file:
         data = file.read()
 
     template_strings = ["{{", "}}", "{%", "%}"]
@@ -80,7 +83,7 @@ def test_bake_project_with_defaults(cookies):
 
         assert result.exit_code == 0
         assert result.exception is None
-        assert result.project.basename == "vlm-python-cookiecutter"
+        assert result.project.basename == "metroscope-python-cookiecutter"
         assert result.project.isdir()
 
         found_toplevel_files = {f.basename for f in result.project.listdir()}
@@ -95,7 +98,7 @@ def test_bake_project_with_special_characters(cookies):
 
         assert result.exit_code == 0
         assert result.exception is None
-        assert result.project.basename == "vlm-python-cookiecutter"
+        assert result.project.basename == "metroscope-python-cookiecutter"
         assert result.project.isdir()
 
         found_toplevel_files = [f.basename for f in result.project.listdir()]
@@ -110,7 +113,7 @@ def test_bake_project_with_data_analysis(cookies):
 
         assert result.exit_code == 0
         assert result.exception is None
-        assert result.project.basename == "vlm-python-cookiecutter"
+        assert result.project.basename == "metroscope-python-cookiecutter"
         assert result.project.isdir()
 
         data_analysis_layout = copy.copy(DEFAULT_LAYOUT)
@@ -122,20 +125,42 @@ def test_bake_project_with_data_analysis(cookies):
         assert not all(no_curlies(filepath=Path(result.project) / file) for file in EXPECTED_WORKFLOWS)
 
 
+def test_bake_project_with_tox_updated(cookies):
+    extra_context = {"check_dependencies_updates": "y"}
+    with bake_in_temp_dir(cookies, extra_context=extra_context) as result:
+
+        assert result.exit_code == 0
+        assert result.exception is None
+        assert result.project.basename == "metroscope-python-cookiecutter"
+        assert result.project.isdir()
+
+        tox_updated_layout = copy.copy(DEFAULT_LAYOUT)
+        tox_updated_layout.update(["tox-updated.ini"])
+
+        expected_workflows = copy.copy(EXPECTED_WORKFLOWS)
+        expected_workflows.update([".github/workflows/tests-updated.yaml"])
+
+        expected_rendered_files = copy.copy(EXPECTED_RENDERED_FILES)
+        expected_rendered_files.update(["tox-updated.ini"])
+
+        found_toplevel_files = {f.basename for f in result.project.listdir()}
+        assert found_toplevel_files == tox_updated_layout
+        assert all(no_curlies(filepath=Path(result.project) / file) for file in EXPECTED_RENDERED_FILES)
+        assert not all(no_curlies(filepath=Path(result.project) / file) for file in expected_workflows)
+
+
 def test_bake_project_with_documentation(cookies):
     extra_context = {"documentation": "y"}
     with bake_in_temp_dir(cookies, extra_context=extra_context) as result:
 
         assert result.exit_code == 0
         assert result.exception is None
-        assert result.project.basename == "vlm-python-cookiecutter"
+        assert result.project.basename == "metroscope-python-cookiecutter"
         assert result.project.isdir()
         documentation_layout = copy.copy(DEFAULT_LAYOUT)
-        documentation_layout.update(["docs"])
-
-        expected_workflows_documentation = copy.copy(EXPECTED_WORKFLOWS)
+        documentation_layout.update(["docs", ".readthedocs.yaml"])
 
         found_toplevel_files = {f.basename for f in result.project.listdir()}
         assert found_toplevel_files == documentation_layout
         assert all(no_curlies(filepath=Path(result.project) / file) for file in EXPECTED_RENDERED_FILES)
-        assert not all(no_curlies(filepath=Path(result.project) / file) for file in expected_workflows_documentation)
+        assert not all(no_curlies(filepath=Path(result.project) / file) for file in EXPECTED_WORKFLOWS)
