@@ -1,13 +1,11 @@
 
 {% raw -%}
-name: Linters and Tests
+name: Lint and Test Python Package with the latest dependencies
 
 on:
-  push:
-    branches:
-      - "**"
-    tags:
-      - "!*"
+  schedule:
+    # Every Monday at 00:00:00
+    - cron: "0 0 * * 1"
 
 env:
   PIP_INDEX_URL: https://pypi.python.org/simple
@@ -25,29 +23,24 @@ jobs:
           python-version: 3.8
       - name: Install Tox
         run: |
-          python -m pip install --upgrade pip
-          pip install tox~=3.24.4
+          python -m pip install tox pipupgrade
+          pipupgrade --latest --yes
       - name: Run Build
-        run: tox -e build
+        run: tox -c tox-updated.ini -e build
       - name: Run Bandit
-        run: tox -e bandit
+        run: tox -c tox-updated.ini -e bandit
       - name: Run Black
-        run: tox -e black
+        run: tox -c tox-updated.ini -e black
       - name: Run Isort
-        run: tox -e isort
+        run: tox -c tox-updated.ini -e isort
       - name: Run pylint
-        run: tox -e pylint
-      - name: Install enchant
-        run: sudo apt-get install enchant
-      - name: Run spellcheck
-        run: tox -e spelling
+        run: tox -c tox-updated.ini -e pylint
       - name: Run mypy
-        run: tox -e mypy
+        run: tox -c tox-updated.ini -e mypy
       - name: Run flake8
-        run: tox -e flake8
+        run: tox -c tox-updated.ini -e flake8
       - name: Run Safety
-        run: tox -e safety
-
+        run: tox -c tox-updated.ini -e safety
 
 {%- endraw %}
 
@@ -73,24 +66,11 @@ jobs:
           python-version: ${{ matrix.python }}
       - name: Install Tox
         run: |
-          python -m pip install --upgrade pip
-          pip install tox~=3.24.4 coverage==5.4
+          python -m pip install tox coverage pipupgrade
+          pipupgrade --latest --yes
       - name: Run Tests with tox
         # Run tox using the version of Python in `PATH`
         run: |
-          tox -e py
+          tox -c tox-updated.ini -e py
           coverage xml
-
-  sonar:
-    needs: lint
-    name: SonarCloud
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Current Branch
-        uses: actions/checkout@v2
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 {%- endraw %}
