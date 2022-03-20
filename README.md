@@ -156,7 +156,7 @@ Issues may arise if you :
 ## Current Features
 
 - Modern project setup with `setup.cfg` and `pyproject.toml`
-- Python interpreters : By default, Python 3.7, Python 3.8 and Python 3.9 will be used to test your code.
+- Python interpreters : By default Python 3.8 and Python 3.9 will be used to test your code.
 - Linters : `black`, `bandit`, `isort`, `flake8`, `pylint` and `mypy`.
 - Spell checking for code, comments and docstrings via `pyenchant`.
 - Test suite : tox and pytest
