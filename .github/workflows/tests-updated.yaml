@@ -1,0 +1,66 @@
+name: Lint and Test Python Package with the latest dependencies
+
+on:
+  schedule:
+    # Every Monday at 00:00:00
+    - cron: "0 0 * * 1"
+
+jobs:
+  lint:
+    name: Linters on Python 3.8 (ubuntu-latest)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Current Branch
+        uses: actions/checkout@v2
+      - name: Set Up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install Tox
+        run: |
+          python -m pip install tox pipupgrade
+          pipupgrade --latest --yes
+      - name: Run Build
+        run: tox -c tox-updated.ini -e build
+      - name: Run Bandit
+        run: tox -c tox-updated.ini -e bandit
+      - name: Run Black
+        run: tox -c tox-updated.ini -e black
+      - name: Run Isort
+        run: tox -c tox-updated.ini -e isort
+      - name: Run pylint
+        run: tox -c tox-updated.ini -e pylint
+      - name: Run mypy
+        run: tox -c tox-updated.ini -e mypy
+      - name: Run flake8
+        run: tox -c tox-updated.ini -e flake8
+      - name: Run Safety
+        run: tox -c tox-updated.ini -e safety
+
+  tests:
+    needs: lint
+    strategy:
+      matrix:
+        include:
+          - { python: 3.9, os: ubuntu-latest }
+          - { python: 3.8, os: ubuntu-latest }
+          - { python: 3.9, os: windows-latest }
+    name: Python ${{ matrix.python }} (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout Current Branch
+        uses: actions/checkout@v2
+      - name: Set Up Python ${{ matrix.python }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install Tox
+        run: |
+          python -m pip install tox coverage pipupgrade
+          pipupgrade --latest --yes
+      - name: Run Tests with tox
+        # Run tox using the version of Python in `PATH`
+        run: |
+          tox -c tox-updated.ini -e py
+          coverage xml
+

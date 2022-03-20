@@ -52,3 +52,24 @@ repos:
         entry: tox -e mypy
         language: system
         types: [python]
+# Hooks to lint notebooks
+  # Example taken: from https://nbqa.readthedocs.io/en/latest/pre-commit.html
+  - repo: https://github.com/nbQA-dev/nbQA
+    rev: 1.2.3
+    hooks:
+      - id: nbqa-black
+        additional_dependencies: [black~=21.11b1]
+      - id: nbqa-isort
+        additional_dependencies: [isort~=5.10.1]
+      # Added custom hook for autoflake: https://nbqa.readthedocs.io/en/latest/pre-commit.html#custom-hooks
+      - id: nbqa
+        entry: nbqa autoflake
+        name: nbqa-autoflake
+        alias: nbqa-autoflake
+        additional_dependencies: [autoflake~=1.4]
+        args:
+          - --in-place
+          - --remove-unused-variables
+          - --remove-all-unused-imports
+          - --expand-star-imports
+
