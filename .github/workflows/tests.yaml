@@ -54,7 +54,6 @@ jobs:
         include:
           - { python: 3.9, os: ubuntu-latest }
           - { python: 3.8, os: ubuntu-latest }
-          - { python: 3.7, os: ubuntu-latest }
           - { python: 3.9, os: windows-latest }
     name: Python ${{ matrix.python }} (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
