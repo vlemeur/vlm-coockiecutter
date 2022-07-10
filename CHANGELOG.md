@@ -13,4 +13,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- 🐛 Fixing Url and updating Readme instructions for crut creation [#PR8](https://github.com/vlemeur/vlm-coockiecutter/pull/8)
 - ⬆️ Upgrade dependencies [#PR7](https://github.com/vlemeur/vlm-coockiecutter/pull/7)
