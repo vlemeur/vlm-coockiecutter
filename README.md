@@ -75,6 +75,8 @@ Once you have created your package locally, a few steps remain that haven't been
   git remote add origin https://github.com/vlemeur/**repository-url**
   git add .
   git commit -m "Initial Commit. Project generated using vlm-cookiecutter"
+  git branch -M main
+  git push -u origin main
   ```
 
 - If you have opted for the `documentation` optional feature at project creation
