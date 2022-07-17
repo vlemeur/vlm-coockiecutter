@@ -40,7 +40,6 @@ Current variables, default values in parenthesis, a small description and recomm
 - "email" ("vincenlemeur@gmail.com") : email of the packahe maintainer/main contributor. Used for `setup.cfg` metadata.
 - "project_folder" (`"vlm-cookiecutter"`) : used for the project folder (top folder generated). Recommended for GitHub repository name, but not compulsory.</br>
 Using lower-case words separated with hyphen `"-"` and without whitespace is compulsory.</br>
-**Warning** : `project_folder` is not compulsory for the GitHub repo name, but if you do change it then update the SonarCloud key in `sonar-project.properties`.
 - "package_name" (`"{{ cookiecutter.project_folder.lower().replace(' ', '_').replace('-', '_') }}"`) : used for the resulting Python package. Using lower-case words separated with underscore `"_"` and without whitespace is compulsory.</br>
 - "repository_url" (`"https://github.com/vlemeur/{{ cookiecutter.project_folder }}"`) : project url, default suggested url is built from `package_name` directly
 - "project_short_description" ("Cookiecutter for Python projects") : used for the `setup.cfg` metadata and the `README.md`.
