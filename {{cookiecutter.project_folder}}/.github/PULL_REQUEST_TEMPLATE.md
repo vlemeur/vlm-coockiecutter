@@ -1,6 +1,6 @@
 ## Goal
 
-Describe the big picture of your changes here (one sentence). If it fixes a bug or resolves a feature request, be sure to link to that issue.
+Describe the big picture of your changes here. If it fixes a bug or resolves a feature request, be sure to link to that issue.
 
 ## Type of change
 
@@ -11,12 +11,7 @@ Please delete options that are not relevant.
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - [ ] Release & Version Update (when cumulative changes justify a release)
 - [ ] Documentation Update (if none of the other choices apply)
-
-## Changelist
-
-Briefly describe the different changes here, with the files impacted :
-
-- e.g. `README.md` : updated documentation following interface update
+- [ ] Others (CI/CD, tests, configuration)
 
 ## Checklist
 
